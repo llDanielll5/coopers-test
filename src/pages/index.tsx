@@ -54,6 +54,43 @@ export default function Home() {
           <button>Learn More</button>
         </section>
 
+        {/* Form Section */}
+        <section className="form">
+          <h2>Get in Touch</h2>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+
+            <label htmlFor="message">Message:</label>
+            <textarea
+              name="message"
+              id="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              required
+            />
+
+            <button type="submit">Submit</button>
+          </form>
+        </section>
+
         {/* Contact Section */}
         <section className="contact">
           <h2>Contact Information</h2>
