@@ -1,0 +1,154 @@
+@media screen and (max-width: 760px) {
+  .header {
+    background-color: white;
+    color: #fff;
+    display: flex;
+    height: 5rem;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    padding: 30px 0px 30px 30px;
+  }
+  .logo {
+    width: 40%;
+    height: 3rem;
+    max-width: 12rem;
+    min-width: 8rem;
+    background-image: url("/images/Logo.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .sigin-container {
+    width: 40%;
+    transition: 0.7s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+  .hambMenu {
+    height: 30px;
+    width: 30px;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 2px;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  .signin-button {
+    display: block;
+    background-color: transparent;
+    border: none;
+    color: black;
+    margin-right: 8px;
+    transition: 0.5s;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 30px;
+    opacity: 0;
+  }
+
+  .container {
+    padding: 0 16px;
+    width: 100%;
+  }
+
+  /* BANNER SECTION */
+  .banner {
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+  }
+  .banner h1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: black;
+    text-align: center;
+  }
+  .banner p {
+    font-family: Montserrat, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #4ac959;
+    text-align: center;
+  }
+  .banner .text {
+    font-family: Montserrat, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+    margin: 40px 0 32px 0;
+    text-align: center;
+  }
+  .banner button {
+    background-color: #4ac959;
+    border: none;
+    border-radius: 10px;
+    padding: 6px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    color: white;
+    line-height: 29px;
+    font-size: 18px;
+  }
+
+  /* TODO CONTAINER */
+
+  .todo-section {
+    margin-top: 30px;
+    width: 100vw;
+    background-image: url("/images/BG.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 70px 0;
+  }
+  .todo-section h2 {
+    color: white;
+    border-bottom: 1px solid #4ac959;
+  }
+  .todo-section p {
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    width: 50%;
+    margin-top: 16px;
+    line-height: 23px;
+  }
+}
+
+@media screen and (max-width: 455px) {
+  .logo {
+    height: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .logo {
+    height: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 392px) {
+  .logo {
+    height: 2rem;
+  }
+  .header {
+    padding-right: 5px;
+  }
+  .container {
+    padding: 0 8px;
+    width: 100%;
+  }
+}

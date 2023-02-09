@@ -1,78 +1,93 @@
+import React, { useCallback, useRef, useState } from "react";
 import Head from "next/head";
-import { useState } from "react";
+import useWindowSize from "@/hooks/useWindowSize";
+import { FiMenu } from "react-icons/fi";
+import styles from "@/styles/Mobile.module.css";
 
 export default function Home() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const size = useWindowSize();
+  const [siginVisible, setSiginVisible] = useState(false);
+  const [modalSigin, setModalSigin] = useState(false);
 
-  const handleInputChange = (event: any) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
+  const handlePressMenu = () => {
+    const hamb = document.getElementById("hambSigin");
+    const button = document.getElementById("buttonSigin");
+    const changeStyles = (widthHamb: string, rightButton: string) => {
+      hamb?.style?.setProperty("width", widthHamb);
+      button?.style.setProperty("opacity", rightButton);
+      setSiginVisible(!siginVisible);
+    };
+    if (!siginVisible && size?.width! < 760) changeStyles("0px", "1");
+    else changeStyles("30px", "0");
   };
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    console.log(formData);
+  const handlePressSigin = () => {
+    handlePressMenu();
+    setModalSigin(!modalSigin);
   };
-  return (
-    <>
-      <Head>
-        <title>Test Coopers</title>
-        <meta
-          name="description"
-          content="Test to work in Full Stack Developer position"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
-      <div>
+  if (!size?.width) return null;
+  else
+    return (
+      <>
+        <Head>
+          <title>Test Coopers</title>
+          <meta
+            name="description"
+            content="Test to work as a Full Stack Developer"
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
         {/* Header Section */}
-        <header>
-          <nav>
-            <h2>Logo</h2>
-            <ul>
-              <li>Home</li>
-              <li>About</li>
-              <li>Contact</li>
-            </ul>
-          </nav>
+        <header className={styles.header}>
+          <div className={styles.logo} />
+          <div className={styles["sigin-container"]}>
+            <button
+              className={styles["signin-button"]}
+              id={"buttonSigin"}
+              onClick={handlePressSigin}
+            >
+              Entrar
+            </button>
+            <FiMenu
+              className={styles.hambMenu}
+              id={"hambSigin"}
+              onClick={handlePressMenu}
+            />
+          </div>
         </header>
 
-        {/* Banner Section */}
-        <section className="banner">
-          <h1>Welcome to our landing page</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <button>Learn More</button>
-        </section>
+        <div className={styles.container}>
+          {/* Banner Section */}
+          <section className={styles.banner}>
+            <h1>Organize</h1>
+            <p>your daily jobs</p>
+            <span className={styles.text}>The only way to get things done</span>
+            <button
+              className={styles["todo-button"]}
+              id={"todoList"}
+              onClick={() => alert("todo list")}
+            >
+              Go to To-do list
+            </button>
+          </section>
+        </div>
 
         {/* Contact Section */}
-        <section className="contact">
-          <h2>Contact Information</h2>
+        <section className={styles["todo-section"]}>
+          <h2>To-do List</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            {`Drag and drop to set your main priorities, check when done and
+            create what's new.`}
           </p>
-          <ul>
-            <li>Phone: 123-456-7890</li>
-            <li>Email: info@example.com</li>
-            <li>Address: 123 Main Street, Anytown USA</li>
-          </ul>
         </section>
 
         {/* Footer Section */}
         <footer>
           <p>Copyright &</p>
         </footer>
-      </div>
-    </>
-  );
+      </>
+    );
 }
