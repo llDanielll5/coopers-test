@@ -1,8 +1,13 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Head from "next/head";
-import useWindowSize from "@/hooks/useWindowSize";
 import { FiMenu } from "react-icons/fi";
 import styles from "@/styles/Mobile.module.css";
+import Image from "next/image";
+import useWindowSize from "@/hooks/useWindowSize";
+import Things from "@/components/Things";
+import ContactForm from "@/components/ContactForm";
+import AngularRect from "@/media/icons/AngularRect";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const size = useWindowSize();
@@ -12,9 +17,9 @@ export default function Home() {
   const handlePressMenu = () => {
     const hamb = document.getElementById("hambSigin");
     const button = document.getElementById("buttonSigin");
-    const changeStyles = (widthHamb: string, rightButton: string) => {
+    const changeStyles = (widthHamb: string, opacity: string) => {
       hamb?.style?.setProperty("width", widthHamb);
-      button?.style.setProperty("opacity", rightButton);
+      button?.style.setProperty("opacity", opacity);
       setSiginVisible(!siginVisible);
     };
     if (!siginVisible && size?.width! < 760) changeStyles("0px", "1");
@@ -26,7 +31,7 @@ export default function Home() {
     setModalSigin(!modalSigin);
   };
 
-  if (!size?.width) return null;
+  if (!size.width) return null;
   else
     return (
       <>
@@ -62,6 +67,16 @@ export default function Home() {
         <div className={styles.container}>
           {/* Banner Section */}
           <section className={styles.banner}>
+            {size?.width! > 760 && (
+              <Image
+                src={"/images/BGarrow.png"}
+                alt="arrow background"
+                className={styles["arrow-background"]}
+                width={size?.width / 1.5}
+                height={700}
+                style={{ position: "absolute", right: 0 }}
+              />
+            )}
             <h1>Organize</h1>
             <p>your daily jobs</p>
             <span className={styles.text}>The only way to get things done</span>
@@ -84,10 +99,11 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Footer Section */}
-        <footer>
-          <p>Copyright &</p>
-        </footer>
+        <Things maxWidth={size.width} />
+
+        <ContactForm />
+
+        <Footer width={size.width} />
       </>
     );
 }

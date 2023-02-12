@@ -1,15 +1,17 @@
+//@ts-nocheck
 import { useEffect, useState } from "react";
-
-interface size {
-  width: undefined | number;
-  height: undefined | number;
+interface WindowResizerProps {
+  width: number | undefined;
+  heigth: number | undefined;
 }
 
-const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState<size>({
+export default function useWindowSize() {
+  const Resizer: WindowResizerProps = {
     width: undefined,
     height: undefined,
-  });
+  };
+  const [windowSize, setWindowSize] = useState<WindowResizerProps>(Resizer);
+
   useEffect(() => {
     function handleResize() {
       setWindowSize({
@@ -17,9 +19,12 @@ const useWindowSize = () => {
         height: window.innerHeight,
       });
     }
+
+    window.addEventListener("resize", handleResize);
+
     handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   return windowSize;
-};
-
-export default useWindowSize;
+}
