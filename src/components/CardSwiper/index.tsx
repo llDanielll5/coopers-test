@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/legacy/image";
-import styles from "../../styles/Mobile.module.css";
+import styles from "../../styles/Landing.module.css";
 
 interface CardSwiperProps {
   title: string;

@@ -1,6 +1,6 @@
 import MailIcon from "@/media/icons/Mail";
 import React, { useState } from "react";
-import styles from "../../styles/Mobile.module.css";
+import styles from "../../styles/Landing.module.css";
 import Input from "../Input";
 
 const ContactForm = () => {

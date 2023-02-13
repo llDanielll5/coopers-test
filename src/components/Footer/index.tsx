@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import AngularRect from "@/media/icons/AngularRect";
-import styles from "../../styles/Mobile.module.css";
+import styles from "../../styles/Landing.module.css";
 
 const Footer = (props: { width: number }) => {
   return (

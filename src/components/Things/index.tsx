@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, { useState } from "react";
-import styles from "../../styles/Mobile.module.css";
+import styles from "../../styles/Landing.module.css";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

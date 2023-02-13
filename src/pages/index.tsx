@@ -1,18 +1,23 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { FiMenu } from "react-icons/fi";
-import styles from "@/styles/Mobile.module.css";
+import styles from "@/styles/Landing.module.css";
 import Image from "next/image";
 import useWindowSize from "@/hooks/useWindowSize";
 import Things from "@/components/Things";
 import ContactForm from "@/components/ContactForm";
-import AngularRect from "@/media/icons/AngularRect";
 import Footer from "@/components/Footer";
+import Modal from "@/components/Modal";
+import { useRecoilState } from "recoil";
+import { HiOutlineLogout } from "react-icons/hi";
+import { auth } from "@/services/firebase";
+import { Authentication } from "@/atoms/Authentication";
 
-export default function Home() {
+export default function LandingPage() {
   const size = useWindowSize();
   const [siginVisible, setSiginVisible] = useState(false);
   const [modalSigin, setModalSigin] = useState(false);
+  const [{ isAuth }, setIsAuth] = useRecoilState(Authentication);
 
   const handlePressMenu = () => {
     const hamb = document.getElementById("hambSigin");
@@ -20,16 +25,36 @@ export default function Home() {
     const changeStyles = (widthHamb: string, opacity: string) => {
       hamb?.style?.setProperty("width", widthHamb);
       button?.style.setProperty("opacity", opacity);
-      setSiginVisible(!siginVisible);
     };
     if (!siginVisible && size?.width! < 760) changeStyles("0px", "1");
     else changeStyles("30px", "0");
+    setSiginVisible(!siginVisible);
+  };
+
+  const handleLogout = () => {
+    auth.signOut().then(() => {
+      setIsAuth({ isAuth: false });
+      localStorage.clear();
+    });
   };
 
   const handlePressSigin = () => {
     handlePressMenu();
     setModalSigin(!modalSigin);
   };
+
+  useEffect(() => {
+    const button = document.getElementById("buttonSigin");
+    if (size.width! > 760) {
+      button?.style.setProperty("opacity", "1");
+    } else button?.style.setProperty("opacity", "0");
+  }, [size.width]);
+
+  useEffect(() => {
+    const authed = localStorage.getItem("isAuth");
+    if (authed === "false" || !authed) setIsAuth({ isAuth: false });
+    else setIsAuth({ isAuth: true });
+  }, []);
 
   if (!size.width) return null;
   else
@@ -48,20 +73,31 @@ export default function Home() {
         {/* Header Section */}
         <header className={styles.header}>
           <div className={styles.logo} />
-          <div className={styles["sigin-container"]}>
-            <button
-              className={styles["signin-button"]}
-              id={"buttonSigin"}
-              onClick={handlePressSigin}
-            >
-              Entrar
-            </button>
-            <FiMenu
-              className={styles.hambMenu}
-              id={"hambSigin"}
-              onClick={handlePressMenu}
-            />
-          </div>
+          {isAuth ? (
+            <div className={styles["logout-container"]}>
+              <HiOutlineLogout
+                onClick={handleLogout}
+                className={styles.logout}
+              />
+            </div>
+          ) : (
+            <>
+              <div className={styles["sigin-container"]}>
+                <button
+                  className={styles["signin-button"]}
+                  id={"buttonSigin"}
+                  onClick={handlePressSigin}
+                >
+                  Entrar
+                </button>
+                <FiMenu
+                  className={styles.hambMenu}
+                  id={"hambSigin"}
+                  onClick={handlePressMenu}
+                />
+              </div>
+            </>
+          )}
         </header>
 
         <div className={styles.container}>
@@ -72,9 +108,9 @@ export default function Home() {
                 src={"/images/BGarrow.png"}
                 alt="arrow background"
                 className={styles["arrow-background"]}
-                width={size?.width / 1.5}
+                width={size?.width / 2}
                 height={700}
-                style={{ position: "absolute", right: 0 }}
+                style={{ position: "absolute", right: 0, zIndex: -1 }}
               />
             )}
             <h1>Organize</h1>
@@ -104,6 +140,8 @@ export default function Home() {
         <ContactForm />
 
         <Footer width={size.width} />
+
+        {modalSigin && <Modal onClose={() => setModalSigin(false)} />}
       </>
     );
 }
