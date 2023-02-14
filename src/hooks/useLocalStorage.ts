@@ -13,7 +13,7 @@ export function useLocalStorage(key: any, initialValue: any) {
       return initialValue;
     }
   });
-  const setValue = (value) => {
+  const setValue = (value: any) => {
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;

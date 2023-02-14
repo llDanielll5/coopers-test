@@ -11,6 +11,7 @@ import { Authentication } from "@/atoms/Authentication";
 
 interface ModalProps {
   onClose: () => void;
+  width: number;
 }
 
 const Modal = (props: ModalProps) => {
@@ -59,6 +60,13 @@ const Modal = (props: ModalProps) => {
         </div>
 
         <div className={styles["form-modal"]}>
+          {props.width > 760 && (
+            <img
+              src="/images/sigin.png"
+              alt="sigin image"
+              className={styles["sigin-image"]}
+            />
+          )}
           <h2>
             Sign in
             <p>to access your list</p>
@@ -84,6 +92,7 @@ const Modal = (props: ModalProps) => {
             labelClassName={styles["label-modal"]}
             containerClassName={styles["input-container-modal"]}
           />
+
           <input type="submit" value={"Sign in"} onClick={handleSubmit} />
         </div>
       </div>
