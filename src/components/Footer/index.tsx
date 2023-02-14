@@ -21,7 +21,12 @@ const Footer = (props: { width: number }) => {
       <img
         src={"/images/BGfooter.png"}
         alt="arrow background"
-        style={{ position: "absolute", bottom: 0, width: props.width / 2 }}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          width: props.width / 2,
+          maxWidth: "700px",
+        }}
       />
     </footer>
   );
