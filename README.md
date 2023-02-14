@@ -1,18 +1,23 @@
-## Getting Started
+# Getting Started
 
-Para visualizar o projeto, entre no link:
+[Click here to view hosted project](https://coopers-test-daniel.vercel.app/)
 
-## Learn More
+# Lived experience
 
-To learn more about Next.js, take a look at the following resources:
+## pt-br
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Inicialmente demorei um prazo de 5 dias úteis para finalizar o teste.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Gostei bastante do desafio de tentar criar um drag and drop para modificar as prioridades de tarefas, não havia feito nada parecido antes, então acabei por me desafiar a entender mais de como funciona o draggable dentro do React, utilizando das referências.
 
-## Deploy on Vercel
+Para autenticação de usuário utilizei do Firebase, com autenticação por credenciais. E para gerenciamento de estado utilizei do Recoil, porém acabei por não utilizar muitos atributos do Recoil.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+O gerenciamento da lista de tasks to-do e done, foi realizada pelo gerenciamento de estado local useState.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Criei toda a aplicação pensando primeiro no mobile, e logo depois fui reformulando o desktop.
+
+Não havia entendido muito bem como funcionaria a adição de tasks to-do então criei um ícone para adicionar. É possível adicionar tasks, modificar, deletar e concluir as mesmas. E também é possível excluir todas to-do e done tasks.
+
+Formulário de envio não possui um envio real.
+
+Por fim organizei para adicionar ao usuário e salvar as suas tasks done no Firebase. Mas ainda não foi aplicado até o dia 14/02.
