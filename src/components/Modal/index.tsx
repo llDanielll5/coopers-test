@@ -8,6 +8,8 @@ import {
 } from "@/services/requests";
 import { useRecoilState } from "recoil";
 import { Authentication } from "@/atoms/Authentication";
+import Image from "next/legacy/image";
+import ImageModal from "../../../public/images/sigin.png";
 
 interface ModalProps {
   onClose: () => void;
@@ -58,15 +60,17 @@ const Modal = (props: ModalProps) => {
             close
           </p>
         </div>
-
-        <div className={styles["form-modal"]}>
-          {props.width > 760 && (
-            <img
-              src="/images/sigin.png"
-              alt="sigin image"
-              className={styles["sigin-image"]}
+        {props.width > 760 && (
+          <div className={styles["sigin-image"]}>
+            <Image
+              src={ImageModal}
+              alt="sig in image"
+              height={231}
+              width={231}
             />
-          )}
+          </div>
+        )}
+        <div className={styles["form-modal"]}>
           <h2>
             Sign in
             <p>to access your list</p>

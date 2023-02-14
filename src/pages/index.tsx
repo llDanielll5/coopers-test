@@ -10,7 +10,7 @@ import Things from "@/components/Things";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import Modal from "@/components/Modal";
-import { BsCheck } from "react-icons/bs";
+import { BsCheck, BsNodePlus } from "react-icons/bs";
 import { useRecoilState } from "recoil";
 import { HiOutlineLogout } from "react-icons/hi";
 import { auth } from "@/services/firebase";
@@ -25,7 +25,7 @@ interface TodoType {
 
 const checkStyle = { width: "20px", height: "20px", color: "#4AC959" };
 const doneCheckStyle = { width: "20px", height: "20px", color: "white" };
-const todoInitial = { title: "type some todo", done: false };
+const todoInitial = { title: "", done: false };
 
 export default function LandingPage() {
   const dragItem = useRef();
@@ -81,9 +81,9 @@ export default function LandingPage() {
     setTodoList(copyListItems);
   };
 
-  const eraseAll = () => {
-    setTodoList([todoInitial]);
-  };
+  const eraseAllDone = () => setDoneList([]);
+  const eraseAll = () => setTodoList([todoInitial]);
+  const addTask = () => setTodoList((prev) => [...prev, todoInitial]);
 
   useEffect(() => {
     const button = document.getElementById("buttonSigin");
@@ -118,21 +118,59 @@ export default function LandingPage() {
       }
     };
 
+    const handleChangeTitle = (e: any, i: number) => {
+      setTodoList((prev) => {
+        const clone = [...prev];
+        const indexInput = clone[i];
+        const change = {
+          ...indexInput,
+          title: e.target.value,
+        };
+        clone[i] = change;
+        return clone;
+      });
+    };
+
+    const deleteItem = () => {
+      const clone = [...todoList];
+      clone.splice(index, 1);
+      setTodoList(clone);
+    };
+
     return (
-      <div className={styles.dragall}>
-        <div
-          className={styles.dragtodo}
-          draggable
-          onDragStart={(e) => dragStart(e, index)}
-          onDragEnter={(e) => dragEnter(e, index)}
-          onDragEnd={drop}
-        >
-          <div className={styles.checkbox} onClick={handleSelectTodo}>
-            {item.done && <BsCheck style={checkStyle} />}
+      <>
+        {!item.done ? (
+          <div
+            className={styles.dragall}
+            draggable
+            onDragStart={(e) => dragStart(e, index)}
+            onDragEnter={(e) => dragEnter(e, index)}
+            onDragEnd={drop}
+          >
+            <div className={styles.dragtodo}>
+              <div className={styles.checkbox} onClick={handleSelectTodo}>
+                {item.done && <BsCheck style={checkStyle} />}
+              </div>
+              <input
+                type="text"
+                value={item.title}
+                name={item.title}
+                onChange={(e) => handleChangeTitle(e, index)}
+                className={styles["drag-text"]}
+                placeholder="Type some task todo"
+                style={
+                  todoList.length > 1 ? { width: "70%" } : { width: "95%" }
+                }
+              />
+              {todoList.length > 1 && (
+                <span className={styles["delete-span"]} onClick={deleteItem}>
+                  delete
+                </span>
+              )}
+            </div>
           </div>
-          <p className={styles["drag-text"]}>{item.title}</p>
-        </div>
-      </div>
+        ) : null}
+      </>
     );
   };
 
@@ -143,7 +181,11 @@ export default function LandingPage() {
           <div className={styles["checkbox-done"]}>
             {item.done && <BsCheck style={doneCheckStyle} />}
           </div>
-          <p className={styles["drag-text"]}>{item.title}</p>
+          <input
+            type="text"
+            value={item.title}
+            className={styles["text-done"]}
+          />
         </div>
       </div>
     );
@@ -257,6 +299,8 @@ export default function LandingPage() {
             <h3>Take a breath. {"\n"}Start doing.</h3>
             <div className={styles["drag-container"]}>
               {todoList.map((item, index) => renderTodoItem(item, index))}
+
+              <BsNodePlus className={styles["add-task"]} onClick={addTask} />
               <button className={styles["erase-all"]} onClick={eraseAll}>
                 erase all
               </button>
@@ -266,9 +310,11 @@ export default function LandingPage() {
             <div className={styles["done-top-banner"]} />
             <h2>Done</h2>
             <h3>Congratulations!</h3>
-            <p>You have done {4} tasks</p>
+            <p>You have done {doneList.length} tasks</p>
             {doneList.map((item, index) => renderDoneList(item, index))}
-            <button className={styles["erase-all"]}>erase all</button>
+            <button className={styles["erase-all"]} onClick={eraseAllDone}>
+              erase all
+            </button>
           </div>
         </div>
 
@@ -290,7 +336,9 @@ export default function LandingPage() {
 
         <Footer width={size.width} />
 
-        {modalSigin && <Modal onClose={() => setModalSigin(false)} />}
+        {modalSigin && (
+          <Modal width={size.width} onClose={() => setModalSigin(false)} />
+        )}
       </>
     );
 }
